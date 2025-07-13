@@ -18,7 +18,9 @@
     "clean": "rm -rf dist",
     "prebuild": "yarn clean",
     "build": "microbundle --tsconfig tsconfig.json --no-sourcemap",
-    "sample": "ts-node test/sample_workflow_example.ts",
+    "test-sample": "ts-node test/sample_workflow_example.ts",
+    "test-multi-rule": "ts-node test/multi_rule_example.ts",
+    "test-group": "ts-node test/group_sample_test.ts",
     "build-publish": "bash scripts/build-publish.sh"
   },
   "repository": "https://github.com/gocobalt/workflow_as_code",

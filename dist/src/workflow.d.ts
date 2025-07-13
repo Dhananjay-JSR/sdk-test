@@ -12,7 +12,7 @@ export declare class Workflow {
     build(): ({
         id: string;
         slug: any;
-        action: import(".").Actions;
+        action: import("./constants/Actions").NodeActions;
         input: any;
         next_node: any;
     } | {
@@ -20,7 +20,14 @@ export declare class Workflow {
         falsy_node: string[];
         id: string;
         slug: any;
-        action: import(".").Actions;
+        action: import("./constants/Actions").NodeActions;
+        input: any;
+        next_node: any;
+    } | {
+        entry_node: string | null;
+        id: string;
+        slug: any;
+        action: import("./constants/Actions").NodeActions;
         input: any;
         next_node: any;
     })[];

@@ -5,3 +5,5 @@ export { ResponseNode } from './nodes/ResponseNode';
 export { RuleNode } from './nodes/RuleNode';
 export { Operators } from './constants/Operators';
 export { Actions } from './constants/Actions';
+export { ExternalApp } from './nodes/ExternalNode';
+export { GroupNode } from './nodes/GroupNode';

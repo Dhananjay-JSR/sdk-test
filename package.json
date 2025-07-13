@@ -15,8 +15,8 @@
   "types": "./dist/src/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
-    "prebuild": "yarn clean && tsc --declaration --emitDeclarationOnly --outDir dist",
-    "build": "microbundle --no-sourcemap",
+    "prebuild": "yarn clean",
+    "build": "microbundle --tsconfig tsconfig.json --no-sourcemap",
     "sample": "ts-node test/sample_workflow_example.ts",
     "build-publish": "bash scripts/build-publish.sh"
   },

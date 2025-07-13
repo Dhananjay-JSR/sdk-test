@@ -1,12 +1,12 @@
 {
   "name": "cobalt-workflow-sdk",
   "version": "1.0.0",
-  "main": "dist/cobalt-workflow-sdk.cjs.js",
+  "main": "dist/cobalt-workflow-sdk.js",
   "module": "dist/cobalt-workflow-sdk.esm.js",
   "exports": {
     ".": {
       "import": "./dist/cobalt-workflow-sdk.esm.js",
-      "require": "./dist/cobalt-workflow-sdk.cjs.js",
+      "require": "./dist/cobalt-workflow-sdk.js",
       "types": "./dist/src/index.d.ts"
     }
   },
@@ -26,6 +26,9 @@
   "repository": "https://github.com/gocobalt/workflow_as_code",
   "author": "Dhananjay-JSR <ajaysenday@gmail.com>",
   "license": "MIT",
+  "microbundle": {
+    "main": "dist/cobalt-workflow-sdk.cjs.js"
+  },
   "devDependencies": {
     "microbundle": "^0.15.1",
     "ts-node": "^10.9.1",

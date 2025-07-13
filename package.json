@@ -6,7 +6,8 @@
   "exports": {
     ".": {
       "import": "./dist/cobalt-workflow-sdk.esm.js",
-      "require": "./dist/cobalt-workflow-sdk.cjs.js"
+      "require": "./dist/cobalt-workflow-sdk.cjs.js",
+      "types": "./dist/src/index.d.ts"
     }
   },
   "files": [

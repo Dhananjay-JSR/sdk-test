@@ -10,7 +10,7 @@ export declare class BaseNode {
     constructor(params: {
         slug: string;
         action: NodeActions;
-        input: any;
+        input: Record<string, any>;
     });
     next(node: BaseNode): BaseNode;
     get nextRefs(): BaseNode[];

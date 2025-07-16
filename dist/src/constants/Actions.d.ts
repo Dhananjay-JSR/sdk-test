@@ -1,5 +1,6 @@
 export declare enum Actions {
-    no_action = "no_action"
+    no_action = "no_action",
+    http_request = "httprequest"
 }
 export declare enum GroupActions {
     ArrayIteration = "array_iteration",

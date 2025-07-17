@@ -16,8 +16,8 @@ export declare class Workflow {
         input: any;
         next_node: any;
     } | {
-        truth_node: string[];
-        falsy_node: string[];
+        true_nodes: string[];
+        false_nodes: string[];
         id: string;
         slug: any;
         action: import("./constants/Actions").NodeActions;

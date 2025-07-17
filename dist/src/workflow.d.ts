@@ -18,11 +18,11 @@ export declare class Workflow {
     } | {
         true_nodes: string[];
         false_nodes: string[];
+        next_node: string[];
         id: string;
         slug: any;
         action: import("./constants/Actions").NodeActions;
         input: any;
-        next_node: any;
     } | {
         entry_node: string | null;
         id: string;

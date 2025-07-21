@@ -1,12 +1,12 @@
 {
   "name": "cobalt-workflow-sdk",
   "version": "1.0.0",
-  "main": "dist/cobalt-workflow-sdk.js",
+  "main": "dist/cobalt-workflow-sdk.cjs.js",
   "module": "dist/cobalt-workflow-sdk.esm.js",
   "exports": {
     ".": {
       "import": "./dist/cobalt-workflow-sdk.esm.js",
-      "require": "./dist/cobalt-workflow-sdk.js",
+      "require": "./dist/cobalt-workflow-sdk.cjs.js",
       "types": "./dist/src/index.d.ts"
     }
   },
@@ -17,7 +17,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "prebuild": "yarn clean",
-    "build": "microbundle --tsconfig tsconfig.json --no-sourcemap",
+    "build": "microbundle --tsconfig tsconfig.json --no-sourcemap --external none --format cjs,esm",
     "test-sample": "ts-node test/sample_workflow_example.ts",
     "test-multi-rule": "ts-node test/multi_rule_example.ts",
     "test-group": "ts-node test/group_example.ts",
@@ -26,12 +26,23 @@
   "repository": "https://github.com/gocobalt/workflow_as_code",
   "author": "Dhananjay-JSR <ajaysenday@gmail.com>",
   "license": "MIT",
-  "microbundle": {
-    "main": "dist/cobalt-workflow-sdk.cjs.js"
-  },
   "devDependencies": {
     "microbundle": "^0.15.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.8.3"
+  },
+    "microbundle": {
+    "main": "dist/cobalt-workflow-sdk.cjs.js",
+    "module": "dist/cobalt-workflow-sdk.esm.js",
+    "exports": {
+      ".": {
+        "import": "./dist/cobalt-workflow-sdk.esm.js",
+        "require": "./dist/cobalt-workflow-sdk.cjs.js"
+      }
+    },
+    "globals": {},
+    "external": [],
+    "no-sourcemap": true,
+    "no-compress": false
   }
 }

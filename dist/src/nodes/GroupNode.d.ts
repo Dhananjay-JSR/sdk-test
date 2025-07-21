@@ -8,10 +8,13 @@ export declare class GroupNode extends BaseNode {
     private _for_loop_nodes;
     private _is_in_for_loop;
     array_item: any[];
-    constructor({ action, input }: {
+    constructor({ action, array_item, fixed_iteration }: {
         action: GroupActions;
-        input?: any;
+        array_item?: any[];
+        fixed_iteration?: number;
     });
+    static getAllGroupNodes(): GroupNode[];
+    static clearRegistry(): void;
     setEntryNode(node: BaseNode): void;
     get entryNode(): BaseNode | null;
     /**

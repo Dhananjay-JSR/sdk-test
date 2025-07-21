@@ -9,3 +9,4 @@ export { Actions } from './constants/Actions';
 export { ExternalApp } from './nodes/ExternalNode';
 export { GroupNode } from './nodes/GroupNode';
 export { GroupActions } from './constants/Actions';
+export { StartNodeTrigger } from './constants/Actions';

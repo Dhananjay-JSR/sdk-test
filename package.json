@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/cobalt-workflow-sdk.js",
   "module": "dist/cobalt-workflow-sdk.esm.js",
-  "type": "module",
+  "source": "src/index.ts",
   "exports": {
     ".": {
       "import": "./dist/cobalt-workflow-sdk.esm.js",

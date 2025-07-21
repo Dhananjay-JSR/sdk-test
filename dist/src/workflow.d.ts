@@ -25,12 +25,18 @@ export declare class Workflow {
         input: any;
     } | {
         entry_node: string | null;
+        group_nodes: string[];
+        array_items: any[];
         id: string;
         slug: any;
         action: import("./constants/Actions").NodeActions;
         input: any;
         next_node: any;
     })[];
+    /**
+     * Process all GroupNode for loop nodes
+     */
+    private processAllGroupNodes;
     /**
      * Print a Mermaid flowchart representation of the workflow after build().
      */

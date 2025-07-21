@@ -15,4 +15,6 @@ export declare class BaseNode {
     next(node: BaseNode): BaseNode;
     get nextRefs(): BaseNode[];
     get body(): any;
+    static setForLoopContext(group: any): void;
+    static clearForLoopContext(): void;
 }

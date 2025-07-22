@@ -15,6 +15,7 @@ export declare class Workflow {
         action: import("./constants/Actions").NodeActions;
         input: any;
         next_node: any;
+        parent_node: any;
     } | {
         true_nodes: string[];
         false_nodes: string[];
@@ -23,15 +24,16 @@ export declare class Workflow {
         slug: any;
         action: import("./constants/Actions").NodeActions;
         input: any;
+        parent_node: any;
     } | {
         entry_node: string | null;
         group_nodes: string[];
-        array_items: any[];
         id: string;
         slug: any;
         action: import("./constants/Actions").NodeActions;
         input: any;
         next_node: any;
+        parent_node: any;
     })[];
     /**
      * Process all GroupNode for loop nodes

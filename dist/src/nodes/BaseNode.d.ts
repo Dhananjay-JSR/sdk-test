@@ -1,4 +1,5 @@
 import { NodeActions } from '../constants/Actions';
+import { GroupNode } from './GroupNode';
 export declare class BaseNode {
     static _counter: number;
     id: string;
@@ -7,6 +8,7 @@ export declare class BaseNode {
     input: any;
     next_node: string[];
     private _next_refs;
+    protected _parent_node: GroupNode | null;
     constructor(params: {
         slug: string;
         action: NodeActions;
@@ -14,6 +16,18 @@ export declare class BaseNode {
     });
     next(node: BaseNode): BaseNode;
     get nextRefs(): BaseNode[];
+    /**
+     * Set the parent GroupNode
+     */
+    setParentNode(parent: GroupNode): void;
+    /**
+     * Get the parent GroupNode
+     */
+    get parentNode(): GroupNode | null;
+    /**
+     * Get the parent node ID for serialization
+     */
+    get parent_node(): string | null;
     get body(): any;
     static pushForLoopContext(group: any): void;
     static popForLoopContext(): any;

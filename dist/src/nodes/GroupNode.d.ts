@@ -80,6 +80,18 @@ export declare class GroupNode extends BaseNode {
      */
     private resolveStringTemplate;
     /**
+     * Re-resolve templates with correct IDs
+     */
+    private reResolveTemplates;
+    /**
+     * Recursively re-resolve templates in an object
+     */
+    private reResolveTemplatesInObject;
+    /**
+     * Re-resolve templates in a string using ID mapping
+     */
+    private reResolveTemplatesInString;
+    /**
      * Get current array items for iteration
      */
     get currentArrayItems(): any[];

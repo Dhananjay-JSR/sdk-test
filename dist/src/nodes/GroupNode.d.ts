@@ -3,16 +3,21 @@ import { GroupActions } from '../constants/Actions';
 export declare class GroupNode extends BaseNode {
     private _entry_node_ref;
     entry_node: string | null;
-    private _array_items;
     private _group_nodes;
     private _for_loop_nodes;
     private _is_in_for_loop;
-    array_item: any[];
-    constructor({ iteration_type, array_item, fixed_iteration }: {
+    private _callback_fn?;
+    get callback_fn(): ((array_item: any) => void) | undefined;
+    constructor({ iteration_type, array_item, fixed_iteration, callback_fn }: {
         iteration_type: GroupActions;
         array_item?: any[];
         fixed_iteration?: number;
+        callback_fn?: (array_item: any) => void;
     });
+    /**
+     * Execute the callback function for each array item
+     */
+    executeCallback(): void;
     static getAllGroupNodes(): GroupNode[];
     static clearRegistry(): void;
     setEntryNode(node: BaseNode): void;
@@ -47,26 +52,9 @@ export declare class GroupNode extends BaseNode {
      */
     addToForLoop(node: BaseNode): void;
     /**
-     * Set the array source (previous node response)
-     */
-    setArraySource(arraySource: any): void;
-    /**
-     * Extract array from the source (previous node response)
-     */
-    private extractArrayFromSource;
-    /**
-     * Simple forEach method for array iteration
-     * Always assumes the callback receives a single array_item (not an array)
-     */
-    forEach(callback: (array_item: any, index: number) => BaseNode[]): BaseNode[];
-    /**
      * Process node input to replace array_item references with templates
      */
     private processNodeInput;
-    /**
-     * Replace array_item references with template strings
-     */
-    private replaceArrayItemReferences;
     /**
      * Keep templates as {{node.id.array_item.key}} format
      */
@@ -75,10 +63,6 @@ export declare class GroupNode extends BaseNode {
      * Replace array_item references in a string with template syntax
      */
     private replaceArrayItemInString;
-    /**
-     * Resolve string templates during build
-     */
-    private resolveStringTemplate;
     /**
      * Re-resolve templates with correct IDs
      */
@@ -92,15 +76,7 @@ export declare class GroupNode extends BaseNode {
      */
     private reResolveTemplatesInString;
     /**
-     * Get current array items for iteration
-     */
-    get currentArrayItems(): any[];
-    /**
      * Get all nodes created within this group
      */
     get groupNodes(): BaseNode[];
-    /**
-     * Get array items used for templating
-     */
-    get arrayItems(): any[];
 }

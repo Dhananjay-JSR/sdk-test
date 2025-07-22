@@ -1,17 +1,19 @@
 {
   "name": "cobalt-workflow-sdk",
   "version": "1.0.0",
-"main": "dist/index.js",
-  "module": "dist/index.m.js",
-  "unpkg": "dist/index.umd.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cobalt-workflow-sdk.js",
+  "module": "dist/cobalt-workflow-sdk.esm.js",
   "exports": {
-    "require": "./dist/index.js",
-    "default": "./dist/index.modern.js"
+    ".": {
+      "import": "./dist/cobalt-workflow-sdk.esm.js",
+      "require": "./dist/cobalt-workflow-sdk.js",
+      "types": "./dist/src/index.d.ts"
+    }
   },
   "files": [
     "dist"
   ],
+  "types": "./dist/src/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
     "prebuild": "yarn clean",

@@ -24,7 +24,7 @@ export declare class Workflow {
         action: import(".").NodeActions;
         input: any;
     } | {
-        entry_node: string | null;
+        entry_node: string;
         group_nodes: string[];
         array_items: any[];
         id: string;

@@ -10,7 +10,7 @@ export declare enum Operators {
     contains = "contains",
     not_contains = "not_contains"
 }
-export declare enum Operation {
+export declare enum Operations {
     AND = "and",
     OR = "or"
 }

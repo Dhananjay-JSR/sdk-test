@@ -6,6 +6,6 @@ import { RuleNode } from './nodes/RuleNode';
 import { CodeExecutorNode } from './nodes/CodeExecutorNode';
 import { ExternalApp } from './nodes/ExternalNode';
 import { GroupNode } from './nodes/GroupNode';
-import { Operators, Operation } from './constants/Operators';
+import { Operators, Operations } from './constants/Operators';
 import { Actions, StartNodeTrigger, GroupActions } from './constants/Actions';
-export { Workflow, StartNode, HttpNode, ResponseNode, RuleNode, CodeExecutorNode, ExternalApp, GroupNode, Operators, Operation, Actions, StartNodeTrigger, GroupActions };
+export { Workflow, StartNode, HttpNode, ResponseNode, RuleNode, CodeExecutorNode, ExternalApp, GroupNode, Operators, Operations, Actions, StartNodeTrigger, GroupActions };

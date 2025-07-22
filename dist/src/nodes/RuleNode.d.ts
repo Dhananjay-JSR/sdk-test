@@ -1,12 +1,12 @@
 import { BaseNode } from './BaseNode';
-import { Operation, Operators } from '../constants/Operators';
+import { Operations, Operators } from '../constants/Operators';
 export declare class RuleNode extends BaseNode {
     private _true_refs;
     private _false_refs;
     true_node: string[];
     false_node: string[];
     constructor({ operation, rules }: {
-        operation: Operation;
+        operation: Operations;
         rules: {
             variable: any;
             value: any;

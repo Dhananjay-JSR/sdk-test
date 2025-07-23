@@ -21,6 +21,9 @@
     "test-sample": "ts-node test/sample_workflow_example.ts",
     "test-multi-rule": "ts-node test/multi_rule_example.ts",
     "test-group": "ts-node test/group_example.ts",
+    "test-switch": "ts-node test/switch_example.ts",
+    "test-branching-error": "ts-node test/branching_error_example.ts",
+    "test-duplicate-validation": "ts-node test/duplicate_validation_example.ts",
     "build-publish": "bash scripts/build-publish.sh"
   },
   "repository": "https://github.com/gocobalt/workflow_as_code",

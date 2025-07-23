@@ -1,17 +1,16 @@
-import { NodeActions } from '../constants/Actions';
 import { GroupNode } from './GroupNode';
 export declare class BaseNode {
     static _counter: number;
     id: string;
     slug: string;
-    action: NodeActions;
+    action: string;
     input: any;
     next_node: string[];
     private _next_refs;
     protected _parent_node: GroupNode | null;
     constructor(params: {
         slug: string;
-        action: NodeActions;
+        action: string;
         input: Record<string, any>;
     });
     next(node: BaseNode): BaseNode;
@@ -33,4 +32,9 @@ export declare class BaseNode {
     static popForLoopContext(): any;
     static getCurrentForLoopContext(): any;
     static clearForLoopContext(): void;
+    /**
+     * Virtual function to validate node-specific input requirements
+     * Should be overridden by subclasses to implement their specific validation logic
+     */
+    validateInput(): void;
 }

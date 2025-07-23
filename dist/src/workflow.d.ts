@@ -12,7 +12,7 @@ export declare class Workflow {
     build(): ({
         id: string;
         slug: any;
-        action: import("./constants/Actions").NodeActions;
+        action: string;
         input: any;
         next_node: any;
         parent_node: any;
@@ -22,7 +22,16 @@ export declare class Workflow {
         next_node: string[];
         id: string;
         slug: any;
-        action: import("./constants/Actions").NodeActions;
+        action: string;
+        input: any;
+        parent_node: any;
+    } | {
+        cases: Record<string, string[]>;
+        default_case: string[];
+        next_node: string[];
+        id: string;
+        slug: any;
+        action: string;
         input: any;
         parent_node: any;
     } | {
@@ -30,7 +39,7 @@ export declare class Workflow {
         group_nodes: string[];
         id: string;
         slug: any;
-        action: import("./constants/Actions").NodeActions;
+        action: string;
         input: any;
         next_node: any;
         parent_node: any;

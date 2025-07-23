@@ -13,8 +13,14 @@ export declare class RuleNode extends BaseNode {
             operator: Operators;
         }[];
     });
+    /**
+     * Override next() to prevent usage on branching nodes
+     * Use trueNext() or falseNext() instead
+     */
+    next(node: BaseNode): never;
     trueNext(node: BaseNode): BaseNode;
     falseNext(node: BaseNode): BaseNode;
     get trueRefs(): BaseNode[];
     get falseRefs(): BaseNode[];
+    validateInput(): void;
 }

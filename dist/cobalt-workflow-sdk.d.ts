@@ -493,7 +493,7 @@ declare module "nodes/SubflowNode" {
         validateInput(): void;
     }
 }
-declare module "index" {
+declare module "cobalt-workflow-sdk" {
     import { Workflow } from "workflow";
     import { StartNode } from "nodes/StartNode";
     import { HttpNode } from "nodes/HttpNode";

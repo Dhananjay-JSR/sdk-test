@@ -18,7 +18,7 @@
     "clean": "rm -rf dist",
     "prebuild": "yarn clean",
     "build": "microbundle --tsconfig tsconfig.json --no-sourcemap",
-    "build-types": "tsc --project tsconfig.declaration.json",
+    "build-types": "tsc --project tsconfig.declaration.json && node scripts/fix-declaration.js",
     "build-all": "yarn build && yarn build-types",
     "test-sample": "ts-node test/sample_workflow_example.ts",
     "test-multi-rule": "ts-node test/multi_rule_example.ts",

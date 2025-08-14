@@ -3,7 +3,7 @@ export declare class CodeExecutorNode extends BaseNode {
     private _codeFunction;
     constructor({ parameters, function: codeFunction }: {
         parameters: Record<string, any>;
-        function: (params: any) => any;
+        function: string | ((params: any) => void);
     });
-    get codeFunction(): (params: any) => any;
+    get codeFunction(): string | ((params: any) => void);
 }

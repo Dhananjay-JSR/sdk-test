@@ -232,9 +232,12 @@ declare module "nodes/StartNode" {
     import { BaseNode } from "nodes/BaseNode";
     import { StartNodeTrigger } from "constants/Actions";
     export class StartNode extends BaseNode {
-        constructor({ trigger_type, event_id, cron_expression, api_call_payload }: {
+        constructor({ trigger_type, event, cron_expression, api_call_payload }: {
             trigger_type: StartNodeTrigger;
-            event_id?: string;
+            event?: {
+                application_slug: string;
+                event_id: string;
+            };
             cron_expression?: string;
             api_call_payload?: Record<string, any>;
         });
@@ -373,9 +376,9 @@ declare module "nodes/CodeExecutorNode" {
         private _codeFunction;
         constructor({ parameters, function: codeFunction }: {
             parameters: Record<string, any>;
-            function: (params: any) => any;
+            function: string | ((params: any) => void);
         });
-        get codeFunction(): (params: any) => any;
+        get codeFunction(): string | ((params: any) => void);
     }
 }
 declare module "nodes/ExternalNode" {

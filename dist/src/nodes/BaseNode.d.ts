@@ -8,10 +8,14 @@ export declare class BaseNode {
     next_node: string[];
     private _next_refs;
     protected _parent_node: GroupNode | null;
+    name?: string;
+    description?: string;
     constructor(params: {
         slug: string;
         action: string;
         input: Record<string, any>;
+        name?: string;
+        description?: string;
     });
     next(node: BaseNode): BaseNode;
     get nextRefs(): BaseNode[];

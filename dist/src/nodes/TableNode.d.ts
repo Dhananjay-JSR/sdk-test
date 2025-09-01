@@ -1,9 +1,11 @@
 import { BaseNode } from "./BaseNode";
 import { TableActions } from "../constants/Actions";
 export declare class TableNode extends BaseNode {
-    constructor({ input, action }: {
+    constructor({ input, action, name, description }: {
         input: Record<string, any>;
         action: TableActions;
+        name?: string;
+        description?: string;
     });
     validateInput(): void;
     private validateCreateTableInput;

@@ -4,8 +4,10 @@ export declare class SwitchNode extends BaseNode {
     private _caseRefs;
     private _defaultCase;
     private _defaultRefs;
-    constructor({ switch_value }: {
+    constructor({ switch_value, name, description }: {
         switch_value: any;
+        name?: string;
+        description?: string;
     });
     /**
      * Override next() to prevent usage on branching nodes

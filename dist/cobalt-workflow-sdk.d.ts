@@ -67,11 +67,13 @@ declare module "nodes/GroupNode" {
         private _is_in_for_loop;
         private _callback_fn?;
         get callback_fn(): ((array_item: any) => void) | undefined;
-        constructor({ iteration_type, array_item, fixed_iteration, callback_fn }: {
+        constructor({ iteration_type, array_item, fixed_iteration, callback_fn, name, description }: {
             iteration_type: GroupActions;
             array_item?: any[];
             fixed_iteration?: number;
             callback_fn?: (array_item: any) => void;
+            name?: string;
+            description?: string;
         });
         /**
          * Execute the callback function for each array item
@@ -151,10 +153,14 @@ declare module "nodes/BaseNode" {
         next_node: string[];
         private _next_refs;
         protected _parent_node: GroupNode | null;
+        name?: string;
+        description?: string;
         constructor(params: {
             slug: string;
             action: string;
             input: Record<string, any>;
+            name?: string;
+            description?: string;
         });
         next(node: BaseNode): BaseNode;
         get nextRefs(): BaseNode[];
@@ -208,13 +214,15 @@ declare module "nodes/RuleNode" {
         private _false_refs;
         true_node: string[];
         false_node: string[];
-        constructor({ operation, rules }: {
+        constructor({ operation, rules, name, description }: {
             operation: Operations;
             rules: {
                 variable: any;
                 value: any;
                 operator: Operators;
             }[];
+            name?: string;
+            description?: string;
         });
         /**
          * Override next() to prevent usage on branching nodes
@@ -251,8 +259,10 @@ declare module "nodes/SwitchNode" {
         private _caseRefs;
         private _defaultCase;
         private _defaultRefs;
-        constructor({ switch_value }: {
+        constructor({ switch_value, name, description }: {
             switch_value: any;
+            name?: string;
+            description?: string;
         });
         /**
          * Override next() to prevent usage on branching nodes
@@ -307,6 +317,8 @@ declare module "workflow" {
          */
         build(): ({
             id: string;
+            name: string | undefined;
+            description: string | undefined;
             slug: any;
             action: string;
             input: any;
@@ -317,6 +329,8 @@ declare module "workflow" {
             false_nodes: string[];
             next_node: string[];
             id: string;
+            name: string | undefined;
+            description: string | undefined;
             slug: any;
             action: string;
             input: any;
@@ -326,6 +340,8 @@ declare module "workflow" {
             default_case: string[];
             next_node: string[];
             id: string;
+            name: string | undefined;
+            description: string | undefined;
             slug: any;
             action: string;
             input: any;
@@ -334,6 +350,8 @@ declare module "workflow" {
             entry_node: string | null;
             group_nodes: string[];
             id: string;
+            name: string | undefined;
+            description: string | undefined;
             slug: any;
             action: string;
             input: any;
@@ -353,20 +371,24 @@ declare module "workflow" {
 declare module "nodes/HttpNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class HttpNode extends BaseNode {
-        constructor({ url, method, body, query_params, headers }: {
+        constructor({ url, method, body, query_params, headers, name, description }: {
             url: string;
             method: "GET" | "POST" | "PUT" | "DELETE";
             body?: Record<string, any>;
             query_params: Record<string, any>;
             headers: Record<string, any>;
+            name?: string;
+            description?: string;
         });
     }
 }
 declare module "nodes/ResponseNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class ResponseNode extends BaseNode {
-        constructor({ data }: {
+        constructor({ data, name, description }: {
             data: any;
+            name?: string;
+            description?: string;
         });
     }
 }
@@ -374,9 +396,11 @@ declare module "nodes/CodeExecutorNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class CodeExecutorNode extends BaseNode {
         private _codeFunction;
-        constructor({ parameters, function: codeFunction }: {
+        constructor({ parameters, function: codeFunction, name, description }: {
             parameters: Record<string, any>;
             function: string | ((params: any) => void);
+            name?: string;
+            description?: string;
         });
         get codeFunction(): string | ((params: any) => void);
     }
@@ -384,10 +408,12 @@ declare module "nodes/CodeExecutorNode" {
 declare module "nodes/ExternalNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class ExternalApp extends BaseNode {
-        constructor({ application_slug, action, input }: {
+        constructor({ application_slug, action, input, name, description }: {
             application_slug: string;
             action: string;
             input: any;
+            name?: string;
+            description?: string;
         });
     }
 }
@@ -395,9 +421,11 @@ declare module "nodes/DelayNode" {
     import { BaseNode } from "nodes/BaseNode";
     import { DelayActions } from "constants/Actions";
     export class DelayNode extends BaseNode {
-        constructor({ input, action }: {
+        constructor({ input, action, name, description }: {
             input: Record<string, any>;
             action: DelayActions;
+            name?: string;
+            description?: string;
         });
         validateInput(): void;
         private validateWaitForInput;
@@ -407,8 +435,10 @@ declare module "nodes/DelayNode" {
 declare module "nodes/EmailNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class EmailNode extends BaseNode {
-        constructor({ input }: {
+        constructor({ input, name, description }: {
             input: Record<string, any>;
+            name?: string;
+            description?: string;
         });
         validateInput(): void;
     }
@@ -416,8 +446,10 @@ declare module "nodes/EmailNode" {
 declare module "nodes/FileHandlerNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class FileHandlerNode extends BaseNode {
-        constructor({ input }: {
+        constructor({ input, name, description }: {
             input: Record<string, any>;
+            name?: string;
+            description?: string;
         });
         validateInput(): void;
     }
@@ -426,9 +458,11 @@ declare module "nodes/PDFNode" {
     import { BaseNode } from "nodes/BaseNode";
     import { PDFActions } from "constants/Actions";
     export class PDFNode extends BaseNode {
-        constructor({ input, action }: {
+        constructor({ input, action, name, description }: {
             input: Record<string, any>;
             action: PDFActions;
+            name?: string;
+            description?: string;
         });
         validateInput(): void;
     }
@@ -436,10 +470,12 @@ declare module "nodes/PDFNode" {
 declare module "nodes/DataMapperNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class DataMapperNode extends BaseNode {
-        constructor({ input, mapping, direction }: {
+        constructor({ input, mapping, direction, name, description }: {
             input: string;
             mapping: Record<string, string>;
             direction: 'right' | 'left';
+            name?: string;
+            description?: string;
         });
         validateInput(): void;
     }
@@ -448,9 +484,11 @@ declare module "nodes/DataRefNode" {
     import { BaseNode } from "nodes/BaseNode";
     import { DataRefActions } from "constants/Actions";
     export class DataRefNode extends BaseNode {
-        constructor({ input, action }: {
+        constructor({ input, action, name, description }: {
             input: Record<string, any>;
             action: DataRefActions;
+            name?: string;
+            description?: string;
         });
         validateInput(): void;
     }
@@ -459,9 +497,11 @@ declare module "nodes/TableNode" {
     import { BaseNode } from "nodes/BaseNode";
     import { TableActions } from "constants/Actions";
     export class TableNode extends BaseNode {
-        constructor({ input, action }: {
+        constructor({ input, action, name, description }: {
             input: Record<string, any>;
             action: TableActions;
+            name?: string;
+            description?: string;
         });
         validateInput(): void;
         private validateCreateTableInput;
@@ -478,9 +518,11 @@ declare module "nodes/CsvExcelNode" {
     import { BaseNode } from "nodes/BaseNode";
     import { CsvExcelActions } from "constants/Actions";
     export class CsvExcelNode extends BaseNode {
-        constructor({ action, input }: {
+        constructor({ action, input, name, description }: {
             action: CsvExcelActions;
             input: any;
+            name?: string;
+            description?: string;
         });
         validateInput(): void;
     }
@@ -489,9 +531,11 @@ declare module "nodes/SubflowNode" {
     import { Actions } from "constants/Actions";
     import { BaseNode } from "nodes/BaseNode";
     export class SubflowNode extends BaseNode {
-        constructor({ input, action }: {
+        constructor({ input, action, name, description }: {
             input: Record<string, any>;
             action: Actions.no_action;
+            name?: string;
+            description?: string;
         });
         validateInput(): void;
     }

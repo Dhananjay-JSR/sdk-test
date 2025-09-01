@@ -11,6 +11,8 @@ export declare class Workflow {
      */
     build(): ({
         id: string;
+        name: string | undefined;
+        description: string | undefined;
         slug: any;
         action: string;
         input: any;
@@ -21,6 +23,8 @@ export declare class Workflow {
         false_nodes: string[];
         next_node: string[];
         id: string;
+        name: string | undefined;
+        description: string | undefined;
         slug: any;
         action: string;
         input: any;
@@ -30,6 +34,8 @@ export declare class Workflow {
         default_case: string[];
         next_node: string[];
         id: string;
+        name: string | undefined;
+        description: string | undefined;
         slug: any;
         action: string;
         input: any;
@@ -38,6 +44,8 @@ export declare class Workflow {
         entry_node: string | null;
         group_nodes: string[];
         id: string;
+        name: string | undefined;
+        description: string | undefined;
         slug: any;
         action: string;
         input: any;

@@ -67,11 +67,13 @@ declare module "nodes/GroupNode" {
         private _is_in_for_loop;
         private _callback_fn?;
         get callback_fn(): ((array_item: any) => void) | undefined;
-        constructor({ iteration_type, array_item, fixed_iteration, callback_fn, name, description }: {
-            iteration_type: GroupActions;
-            array_item?: any[];
-            fixed_iteration?: number;
-            callback_fn?: (array_item: any) => void;
+        constructor({ input, name, description }: {
+            input: {
+                iteration_type: GroupActions;
+                array_item?: any[];
+                fixed_iteration?: number;
+                callback_fn?: (array_item: any) => void;
+            };
             name?: string;
             description?: string;
         });
@@ -214,13 +216,15 @@ declare module "nodes/RuleNode" {
         private _false_refs;
         true_node: string[];
         false_node: string[];
-        constructor({ operation, rules, name, description }: {
-            operation: Operations;
-            rules: {
-                variable: any;
-                value: any;
-                operator: Operators;
-            }[];
+        constructor({ input, name, description }: {
+            input: {
+                operation: Operations;
+                rules: {
+                    variable: any;
+                    value: any;
+                    operator: Operators;
+                }[];
+            };
             name?: string;
             description?: string;
         });
@@ -259,8 +263,10 @@ declare module "nodes/SwitchNode" {
         private _caseRefs;
         private _defaultCase;
         private _defaultRefs;
-        constructor({ switch_value, name, description }: {
-            switch_value: any;
+        constructor({ input, name, description }: {
+            input: {
+                switch_value: any;
+            };
             name?: string;
             description?: string;
         });
@@ -371,12 +377,14 @@ declare module "workflow" {
 declare module "nodes/HttpNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class HttpNode extends BaseNode {
-        constructor({ url, method, body, query_params, headers, name, description }: {
-            url: string;
-            method: "GET" | "POST" | "PUT" | "DELETE";
-            body?: Record<string, any>;
-            query_params: Record<string, any>;
-            headers: Record<string, any>;
+        constructor({ input, name, description }: {
+            input: {
+                url: string;
+                method: "GET" | "POST" | "PUT" | "DELETE";
+                body?: Record<string, any>;
+                query_params: Record<string, any>;
+                headers: Record<string, any>;
+            };
             name?: string;
             description?: string;
         });
@@ -385,8 +393,10 @@ declare module "nodes/HttpNode" {
 declare module "nodes/ResponseNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class ResponseNode extends BaseNode {
-        constructor({ data, name, description }: {
-            data: any;
+        constructor({ input, name, description }: {
+            input: {
+                data: any;
+            };
             name?: string;
             description?: string;
         });
@@ -470,10 +480,12 @@ declare module "nodes/PDFNode" {
 declare module "nodes/DataMapperNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class DataMapperNode extends BaseNode {
-        constructor({ input, mapping, direction, name, description }: {
-            input: string;
-            mapping: Record<string, string>;
-            direction: 'right' | 'left';
+        constructor({ input, name, description }: {
+            input: {
+                input: string;
+                mapping: Record<string, string>;
+                direction: 'right' | 'left';
+            };
             name?: string;
             description?: string;
         });
@@ -520,7 +532,7 @@ declare module "nodes/CsvExcelNode" {
     export class CsvExcelNode extends BaseNode {
         constructor({ action, input, name, description }: {
             action: CsvExcelActions;
-            input: any;
+            input?: any;
             name?: string;
             description?: string;
         });

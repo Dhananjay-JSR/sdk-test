@@ -3,7 +3,7 @@ import { CsvExcelActions } from '../constants/Actions';
 export declare class CsvExcelNode extends BaseNode {
     constructor({ action, input, name, description }: {
         action: CsvExcelActions;
-        input: any;
+        input?: any;
         name?: string;
         description?: string;
     });

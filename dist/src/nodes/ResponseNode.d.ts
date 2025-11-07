@@ -1,7 +1,9 @@
 import { BaseNode } from './BaseNode';
 export declare class ResponseNode extends BaseNode {
-    constructor({ data, name, description }: {
-        data: any;
+    constructor({ input, name, description }: {
+        input: {
+            data: any;
+        };
         name?: string;
         description?: string;
     });

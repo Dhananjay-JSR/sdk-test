@@ -8,11 +8,13 @@ export declare class GroupNode extends BaseNode {
     private _is_in_for_loop;
     private _callback_fn?;
     get callback_fn(): ((array_item: any) => void) | undefined;
-    constructor({ iteration_type, array_item, fixed_iteration, callback_fn, name, description }: {
-        iteration_type: GroupActions;
-        array_item?: any[];
-        fixed_iteration?: number;
-        callback_fn?: (array_item: any) => void;
+    constructor({ input, name, description }: {
+        input: {
+            iteration_type: GroupActions;
+            array_item?: any[];
+            fixed_iteration?: number;
+            callback_fn?: (array_item: any) => void;
+        };
         name?: string;
         description?: string;
     });

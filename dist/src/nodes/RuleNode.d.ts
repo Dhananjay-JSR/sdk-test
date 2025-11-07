@@ -5,13 +5,15 @@ export declare class RuleNode extends BaseNode {
     private _false_refs;
     true_node: string[];
     false_node: string[];
-    constructor({ operation, rules, name, description }: {
-        operation: Operations;
-        rules: {
-            variable: any;
-            value: any;
-            operator: Operators;
-        }[];
+    constructor({ input, name, description }: {
+        input: {
+            operation: Operations;
+            rules: {
+                variable: any;
+                value: any;
+                operator: Operators;
+            }[];
+        };
         name?: string;
         description?: string;
     });

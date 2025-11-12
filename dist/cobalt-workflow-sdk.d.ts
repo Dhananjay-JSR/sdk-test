@@ -394,7 +394,7 @@ declare module "nodes/ResponseNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class ResponseNode extends BaseNode {
         constructor({ input, name, description }: {
-            input: {
+            input?: {
                 data: any;
             };
             name?: string;
@@ -408,7 +408,7 @@ declare module "nodes/CodeExecutorNode" {
         private _codeFunction;
         constructor({ parameters, function: codeFunction, name, description }: {
             parameters: Record<string, any>;
-            function: string | ((params: any) => void);
+            function?: string | ((params: any) => void);
             name?: string;
             description?: string;
         });

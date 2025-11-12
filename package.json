@@ -27,7 +27,8 @@
     "test-branching-error": "ts-node test/branching_error_example.ts",
     "test-duplicate-validation": "ts-node test/duplicate_validation_example.ts",
     "build-publish": "bash scripts/build-publish.sh",
-    "test-vm-execution": "ts-node test/vm-execution.ts"
+    "test-vm-execution": "ts-node test/vm-execution.ts",
+    "t1": "ts-node test/code_string.ts"
   },
   "repository": "https://github.com/gocobalt/workflow_as_code",
   "author": "Dhananjay-JSR <ajaysenday@gmail.com>",

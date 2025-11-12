@@ -309,6 +309,18 @@ declare module "nodes/SwitchNode" {
         validateInput(): void;
     }
 }
+declare module "nodes/ExternalNode" {
+    import { BaseNode } from "nodes/BaseNode";
+    export class ExternalApp extends BaseNode {
+        constructor({ application_slug, action, input, name, description }: {
+            application_slug: string;
+            action: string;
+            input: any;
+            name?: string;
+            description?: string;
+        });
+    }
+}
 declare module "workflow" {
     import { StartNode } from "nodes/StartNode";
     export class Workflow {
@@ -415,18 +427,6 @@ declare module "nodes/CodeExecutorNode" {
             description?: string;
         });
         get codeFunction(): string | ((params: any) => void);
-    }
-}
-declare module "nodes/ExternalNode" {
-    import { BaseNode } from "nodes/BaseNode";
-    export class ExternalApp extends BaseNode {
-        constructor({ application_slug, action, input, name, description }: {
-            application_slug: string;
-            action: string;
-            input: any;
-            name?: string;
-            description?: string;
-        });
     }
 }
 declare module "nodes/DelayNode" {

@@ -554,6 +554,18 @@ declare module "nodes/SubflowNode" {
         validateInput(): void;
     }
 }
+declare module "nodes/InternalFunctionNode" {
+    import { Actions } from "constants/Actions";
+    import { BaseNode } from "nodes/BaseNode";
+    export class InternalFunctionNode extends BaseNode {
+        constructor({ input, action, name, description }: {
+            input: Record<string, any>;
+            action: Actions.no_action;
+            name?: string;
+            description?: string;
+        });
+    }
+}
 declare module "cobalt-workflow-sdk" {
     import { Workflow } from "workflow";
     import { StartNode } from "nodes/StartNode";
@@ -575,5 +587,6 @@ declare module "cobalt-workflow-sdk" {
     import { TableNode } from "nodes/TableNode";
     import { CsvExcelNode } from "nodes/CsvExcelNode";
     import { SubflowNode } from "nodes/SubflowNode";
-    export { Workflow, StartNode, HttpNode, ResponseNode, RuleNode, CodeExecutorNode, ExternalApp, GroupNode, SwitchNode, Operators, Operations, Actions, StartNodeTrigger, GroupActions, CsvExcelActions, DataRefActions, DelayNode, EmailNode, FileHandlerNode, PDFNode, DataMapperNode, DataRefNode, TableNode, FileHandlerActions, PDFActions, DelayActions, CsvExcelNode, SubflowNode, TableActions };
+    import { InternalFunctionNode } from "nodes/InternalFunctionNode";
+    export { Workflow, StartNode, HttpNode, ResponseNode, RuleNode, CodeExecutorNode, ExternalApp, GroupNode, SwitchNode, Operators, Operations, Actions, StartNodeTrigger, GroupActions, CsvExcelActions, DataRefActions, DelayNode, EmailNode, FileHandlerNode, PDFNode, DataMapperNode, DataRefNode, TableNode, FileHandlerActions, PDFActions, DelayActions, CsvExcelNode, SubflowNode, TableActions, InternalFunctionNode };
 }

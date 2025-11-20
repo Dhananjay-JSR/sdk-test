@@ -67,13 +67,13 @@ declare module "nodes/GroupNode" {
         private _is_in_for_loop;
         private _callback_fn?;
         get callback_fn(): ((array_item: any) => void) | undefined;
-        constructor({ input, name, description }: {
+        constructor({ input, name, description, iteration_type }: {
             input: {
-                iteration_type: GroupActions;
                 array_item?: any[];
                 fixed_iteration?: number;
                 callback_fn?: (array_item: any) => void;
             };
+            iteration_type: GroupActions;
             name?: string;
             description?: string;
         });

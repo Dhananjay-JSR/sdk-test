@@ -201,7 +201,8 @@ declare module "constants/Operators" {
         in = "in",
         nin = "nin",
         contains = "contains",
-        not_contains = "not_contains"
+        not_contains = "not_contains",
+        exist = "exist"
     }
     export enum Operations {
         AND = "and",

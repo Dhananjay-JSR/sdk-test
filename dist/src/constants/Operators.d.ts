@@ -8,7 +8,8 @@ export declare enum Operators {
     in = "in",
     nin = "nin",
     contains = "contains",
-    not_contains = "not_contains"
+    not_contains = "not_contains",
+    exist = "exist"
 }
 export declare enum Operations {
     AND = "and",

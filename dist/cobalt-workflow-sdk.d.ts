@@ -1,3 +1,17 @@
+declare module "RefoldConfig" {
+    export const RefoldConfig: {
+        /**
+         * Access application configuration fields
+         * CONFIG.APPLICATION.FIELD_NAME → {{application.fields.FIELD_NAME}}
+         */
+        APPLICATION: any;
+        /**
+         * Access workflow configuration fields
+         * CONFIG.WORKFLOW.FIELD_NAME → {{workflow.fields.FIELD_NAME}}
+         */
+        WORKFLOW: any;
+    };
+}
 declare module "nodes/template" {
     export function resolveTemplates(obj: any): any;
 }
@@ -590,5 +604,6 @@ declare module "cobalt-workflow-sdk" {
     import { CsvExcelNode } from "nodes/CsvExcelNode";
     import { SubflowNode } from "nodes/SubflowNode";
     import { InternalFunctionNode } from "nodes/InternalFunctionNode";
-    export { Workflow, StartNode, HttpNode, ResponseNode, RuleNode, CodeExecutorNode, ExternalApp, GroupNode, SwitchNode, Operators, Operations, Actions, StartNodeTrigger, GroupActions, CsvExcelActions, DataRefActions, DelayNode, EmailNode, FileHandlerNode, PDFNode, DataMapperNode, DataRefNode, TableNode, FileHandlerActions, PDFActions, DelayActions, CsvExcelNode, SubflowNode, TableActions, InternalFunctionNode };
+    import { RefoldConfig } from "RefoldConfig";
+    export { Workflow, StartNode, HttpNode, ResponseNode, RuleNode, CodeExecutorNode, ExternalApp, GroupNode, SwitchNode, Operators, Operations, Actions, StartNodeTrigger, GroupActions, CsvExcelActions, DataRefActions, DelayNode, EmailNode, FileHandlerNode, PDFNode, DataMapperNode, DataRefNode, TableNode, FileHandlerActions, PDFActions, DelayActions, CsvExcelNode, SubflowNode, TableActions, InternalFunctionNode, RefoldConfig };
 }

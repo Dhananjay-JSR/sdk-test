@@ -19,4 +19,5 @@ import { TableNode } from './nodes/TableNode';
 import { CsvExcelNode } from './nodes/CsvExcelNode';
 import { SubflowNode } from './nodes/SubflowNode';
 import { InternalFunctionNode } from './nodes/InternalFunctionNode';
-export { Workflow, StartNode, HttpNode, ResponseNode, RuleNode, CodeExecutorNode, ExternalApp, GroupNode, SwitchNode, Operators, Operations, Actions, StartNodeTrigger, GroupActions, CsvExcelActions, DataRefActions, DelayNode, EmailNode, FileHandlerNode, PDFNode, DataMapperNode, DataRefNode, TableNode, FileHandlerActions, PDFActions, DelayActions, CsvExcelNode, SubflowNode, TableActions, InternalFunctionNode };
+import { RefoldConfig } from './RefoldConfig';
+export { Workflow, StartNode, HttpNode, ResponseNode, RuleNode, CodeExecutorNode, ExternalApp, GroupNode, SwitchNode, Operators, Operations, Actions, StartNodeTrigger, GroupActions, CsvExcelActions, DataRefActions, DelayNode, EmailNode, FileHandlerNode, PDFNode, DataMapperNode, DataRefNode, TableNode, FileHandlerActions, PDFActions, DelayActions, CsvExcelNode, SubflowNode, TableActions, InternalFunctionNode, RefoldConfig };

@@ -16,6 +16,7 @@ export declare class BaseNode {
         input: Record<string, any>;
         name?: string;
         description?: string;
+        id?: string;
     });
     next(node: BaseNode): BaseNode;
     get nextRefs(): BaseNode[];

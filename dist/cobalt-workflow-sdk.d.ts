@@ -12,8 +12,131 @@ declare module "RefoldConfig" {
         WORKFLOW: any;
     };
 }
+declare module "templates/TemplateTypes" {
+    /**
+     * Template Types - Type definitions for the template system
+     * Shared between SDK and CodeGenerator for type safety
+     */
+    /**
+     * Proxy marker types used to identify template references
+     */
+    export type ProxyMarker = '__isNodeRef' | '__isEventRef' | '__isConfigRef' | '__isEnvRef' | '__isInstanceRef' | '__isTemplateRef';
+    /**
+     * Reference object created by SDK proxies
+     */
+    export interface NodeRef {
+        __isNodeRef: true;
+        nodeId: string;
+        path: string[];
+    }
+    export interface EventRef {
+        __isEventRef: true;
+        path: string[];
+    }
+    export interface ConfigRef {
+        __isConfigRef: true;
+        configType: 'application' | 'workflow';
+        path: string[];
+    }
+    export interface EnvRef {
+        __isEnvRef: true;
+        envType: 'config_store' | 'workflow_store' | 'linked_account' | 'global_store';
+        path: string[];
+    }
+    export interface InstanceRef {
+        __isInstanceRef: true;
+        path: string[];
+    }
+    export interface TemplateRef {
+        __isTemplateRef: true;
+        template: string;
+    }
+    export type AnyRef = NodeRef | EventRef | ConfigRef | EnvRef | InstanceRef | TemplateRef;
+    /**
+     * Conversion result format
+     */
+    export type ConversionFormat = 'variable' | 'literal' | 'string';
+    export interface ConversionResult {
+        format: ConversionFormat;
+        value: string;
+    }
+    /**
+     * Template Pattern definition
+     */
+    export interface TemplatePattern {
+        /** Pattern name for debugging */
+        name: string;
+        /** Description of what this pattern handles */
+        description: string;
+        /** Proxy marker type */
+        proxyMarker: ProxyMarker;
+        /** Convert SDK ref object to JSON template string */
+        toJSON: (ref: AnyRef) => string;
+        /** RegExp to match JSON templates */
+        jsonPattern: RegExp;
+        /** Convert JSON template to TypeScript code */
+        toCode: (match: RegExpMatchArray, context?: ConversionContext) => ConversionResult;
+        /** RegExp to match TypeScript code */
+        codePattern: RegExp;
+        /** Convert TypeScript code back to JSON template */
+        fromCode: (match: RegExpMatchArray, context?: ConversionContext) => string;
+    }
+    /**
+     * Conversion context for handling edge cases
+     */
+    export interface ConversionContext {
+        /** Map of all nodes in the workflow */
+        allNodes?: Map<string, any>;
+        /** Whether we're inside a GroupNode callback */
+        inGroupCallback?: boolean;
+        /** Current GroupNode ID if in callback */
+        groupNodeId?: string;
+        /** Whether to preserve unresolvable templates */
+        preserveUnresolved?: boolean;
+    }
+    /**
+     * Round-trip validation result
+     */
+    export interface RoundTripResult {
+        success: boolean;
+        errors: string[];
+        original: any;
+        generated: string;
+        compiled: any;
+    }
+}
+declare module "templates/TemplateRegistry" {
+    /**
+     * Template Registry - Central source of truth for all template patterns
+     * Defines bidirectional conversion rules between JSON templates and TypeScript code
+     */
+    import { TemplatePattern } from "templates/TemplateTypes";
+    /**
+     * Central registry of all template patterns
+     * Order matters: more specific patterns should come first
+     */
+    export const TEMPLATE_PATTERNS: TemplatePattern[];
+    /**
+     * Get pattern by name (for debugging)
+     */
+    export function getPatternByName(name: string): TemplatePattern | undefined;
+    /**
+     * Get pattern by proxy marker
+     */
+    export function getPatternByMarker(marker: string): TemplatePattern | undefined;
+}
 declare module "nodes/template" {
+    import type { AnyRef } from "templates/TemplateTypes";
+    /**
+     * Resolve proxy objects to template strings using the Template Registry
+     * This is the core SDK function that converts node/event/config refs to {{}} templates
+     */
     export function resolveTemplates(obj: any): any;
+    /**
+     * Reverse operation: Convert template strings back to reference objects
+     * Used for round-trip validation and code parsing
+     */
+    export function parseTemplatesToRefs(template: string): AnyRef | string;
 }
 declare module "constants/Actions" {
     export enum Actions {
@@ -81,7 +204,7 @@ declare module "nodes/GroupNode" {
         private _is_in_for_loop;
         private _callback_fn?;
         get callback_fn(): ((array_item: any) => void) | undefined;
-        constructor({ input, name, description, iteration_type }: {
+        constructor({ input, name, description, iteration_type, id }: {
             input: {
                 array_item?: any[];
                 fixed_iteration?: number;
@@ -90,6 +213,7 @@ declare module "nodes/GroupNode" {
             iteration_type: GroupActions;
             name?: string;
             description?: string;
+            id?: string;
         });
         /**
          * Execute the callback function for each array item
@@ -137,7 +261,7 @@ declare module "nodes/GroupNode" {
          */
         private keepTemplatesAsIs;
         /**
-         * Replace array_item references in a string with template syntax
+         * Replace array_item and item references in a string with template syntax
          */
         private replaceArrayItemInString;
         /**
@@ -177,6 +301,7 @@ declare module "nodes/BaseNode" {
             input: Record<string, any>;
             name?: string;
             description?: string;
+            id?: string;
         });
         next(node: BaseNode): BaseNode;
         get nextRefs(): BaseNode[];
@@ -217,7 +342,9 @@ declare module "constants/Operators" {
         contains = "contains",
         not_contains = "not_contains",
         exist = "exist",
-        not_exist = "not_exist"
+        not_exist = "not_exist",
+        is_null = "is_null",
+        not_null = "not_null"
     }
     export enum Operations {
         AND = "and",
@@ -232,7 +359,7 @@ declare module "nodes/RuleNode" {
         private _false_refs;
         true_node: string[];
         false_node: string[];
-        constructor({ input, name, description }: {
+        constructor({ input, name, description, id }: {
             input: {
                 operation: Operations;
                 rules: {
@@ -243,6 +370,7 @@ declare module "nodes/RuleNode" {
             };
             name?: string;
             description?: string;
+            id?: string;
         });
         /**
          * Override next() to prevent usage on branching nodes
@@ -260,7 +388,7 @@ declare module "nodes/StartNode" {
     import { BaseNode } from "nodes/BaseNode";
     import { StartNodeTrigger } from "constants/Actions";
     export class StartNode extends BaseNode {
-        constructor({ trigger_type, event, cron_expression, api_call_payload }: {
+        constructor({ trigger_type, event, cron_expression, api_call_payload, id }: {
             trigger_type: StartNodeTrigger;
             event?: {
                 application_slug: string;
@@ -268,6 +396,7 @@ declare module "nodes/StartNode" {
             };
             cron_expression?: string;
             api_call_payload?: Record<string, any>;
+            id?: string;
         });
         get event(): any;
     }
@@ -328,12 +457,13 @@ declare module "nodes/SwitchNode" {
 declare module "nodes/ExternalNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class ExternalApp extends BaseNode {
-        constructor({ application_slug, action, input, name, description }: {
+        constructor({ application_slug, action, input, name, description, id }: {
             application_slug: string;
             action: string;
             input: any;
             name?: string;
             description?: string;
+            id?: string;
         });
     }
 }
@@ -421,12 +551,13 @@ declare module "nodes/HttpNode" {
 declare module "nodes/ResponseNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class ResponseNode extends BaseNode {
-        constructor({ input, name, description }: {
+        constructor({ input, name, description, id }: {
             input?: {
                 data: any;
             };
             name?: string;
             description?: string;
+            id?: string;
         });
     }
 }
@@ -434,13 +565,14 @@ declare module "nodes/CodeExecutorNode" {
     import { BaseNode } from "nodes/BaseNode";
     export class CodeExecutorNode extends BaseNode {
         private _codeFunction;
-        constructor({ input, name, description }: {
+        constructor({ input, name, description, id }: {
             input: {
                 parameters: Record<string, any>;
                 function?: string | ((params: any) => void);
             };
             name?: string;
             description?: string;
+            id?: string;
         });
         get codeFunction(): string | ((params: any) => void);
     }
@@ -606,4 +738,54 @@ declare module "cobalt-workflow-sdk" {
     import { InternalFunctionNode } from "nodes/InternalFunctionNode";
     import { RefoldConfig } from "RefoldConfig";
     export { Workflow, StartNode, HttpNode, ResponseNode, RuleNode, CodeExecutorNode, ExternalApp, GroupNode, SwitchNode, Operators, Operations, Actions, StartNodeTrigger, GroupActions, CsvExcelActions, DataRefActions, DelayNode, EmailNode, FileHandlerNode, PDFNode, DataMapperNode, DataRefNode, TableNode, FileHandlerActions, PDFActions, DelayActions, CsvExcelNode, SubflowNode, TableActions, InternalFunctionNode, RefoldConfig };
+}
+declare module "templates/TemplateConverter" {
+    import { ConversionContext, RoundTripResult } from "templates/TemplateTypes";
+    /**
+     * Convert JSON template strings to TypeScript code
+     * This is used by WorkflowCodeGenerator when generating code from JSON
+     */
+    export class TemplateConverter {
+        /**
+         * Convert a JSON template value to TypeScript code
+         * Handles strings, objects, arrays recursively
+         */
+        static jsonToCode(value: any, context?: ConversionContext): any;
+        /**
+         * Convert a single template string to TypeScript code
+         * Core conversion logic
+         */
+        private static convertTemplateString;
+        /**
+         * Check if a string is a pure variable reference (no literal text)
+         */
+        private static isPureVariableReference;
+        /**
+         * Fix JavaScript syntax issues in converted templates
+         */
+        private static fixJavaScriptSyntax;
+        /**
+         * Convert TypeScript code back to JSON template strings
+         * This is used for round-trip validation
+         */
+        static codeToJSON(code: string, context?: ConversionContext): string;
+        /**
+         * Validate round-trip conversion
+         * JSON → Code → JSON should produce identical result
+         */
+        static validateRoundTrip(originalJSON: any, context?: ConversionContext): RoundTripResult;
+        /**
+         * Deep equality check for round-trip validation
+         */
+        private static deepEqual;
+    }
+}
+declare module "templates/index" {
+    /**
+     * Templates - Shared template system for SDK and CodeGenerator
+     * Central source of truth for template pattern definitions and conversions
+     */
+    export * from "templates/TemplateTypes";
+    export * from "templates/TemplateRegistry";
+    export * from "templates/TemplateConverter";
 }

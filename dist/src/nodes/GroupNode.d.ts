@@ -8,7 +8,7 @@ export declare class GroupNode extends BaseNode {
     private _is_in_for_loop;
     private _callback_fn?;
     get callback_fn(): ((array_item: any) => void) | undefined;
-    constructor({ input, name, description, iteration_type }: {
+    constructor({ input, name, description, iteration_type, id }: {
         input: {
             array_item?: any[];
             fixed_iteration?: number;
@@ -17,6 +17,7 @@ export declare class GroupNode extends BaseNode {
         iteration_type: GroupActions;
         name?: string;
         description?: string;
+        id?: string;
     });
     /**
      * Execute the callback function for each array item
@@ -64,7 +65,7 @@ export declare class GroupNode extends BaseNode {
      */
     private keepTemplatesAsIs;
     /**
-     * Replace array_item references in a string with template syntax
+     * Replace array_item and item references in a string with template syntax
      */
     private replaceArrayItemInString;
     /**

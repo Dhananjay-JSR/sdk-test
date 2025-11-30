@@ -10,7 +10,9 @@ export declare enum Operators {
     contains = "contains",
     not_contains = "not_contains",
     exist = "exist",
-    not_exist = "not_exist"
+    not_exist = "not_exist",
+    is_null = "is_null",
+    not_null = "not_null"
 }
 export declare enum Operations {
     AND = "and",

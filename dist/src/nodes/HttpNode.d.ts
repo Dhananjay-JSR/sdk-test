@@ -1,6 +1,6 @@
 import { BaseNode } from './BaseNode';
 export declare class HttpNode extends BaseNode {
-    constructor({ input, name, description }: {
+    constructor({ input, name, description, id }: {
         input: {
             url: string;
             method: "GET" | "POST" | "PUT" | "DELETE";
@@ -10,5 +10,6 @@ export declare class HttpNode extends BaseNode {
         };
         name?: string;
         description?: string;
+        id?: string;
     });
 }

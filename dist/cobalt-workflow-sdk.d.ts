@@ -180,7 +180,11 @@ declare module "constants/Actions" {
         JSON_DATA_TO_EXCEL = "json_data_to_excel",
         CSV_TO_EXCEL = "csv_to_excel",
         MERGE_EXCEL_FILES = "merge_excel_files",
-        WRITE_DATA_TO_FILE = "write_data_to_file"
+        WRITE_DATA_TO_FILE = "write_data_to_file",
+        JSON_TO_X12_EDI = "json_to_x12_edi",
+        X12_EDI_TO_JSON = "x12_edi_to_json",
+        CXML_TO_JSON = "cxml_to_json",
+        JSON_TO_CXML = "json_to_cxml"
     }
     export enum StartNodeTrigger {
         API_CALL = "api_call",

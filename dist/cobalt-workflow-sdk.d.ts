@@ -207,12 +207,15 @@ declare module "nodes/GroupNode" {
         private _for_loop_nodes;
         private _is_in_for_loop;
         private _callback_fn?;
+        private _output_data?;
         get callback_fn(): ((array_item: any) => void) | undefined;
+        get output_data(): Record<string, any> | undefined;
         constructor({ input, name, description, iteration_type, id }: {
             input: {
-                array_item?: any[];
+                array_item?: any;
                 fixed_iteration?: number;
                 callback_fn?: (array_item: any) => void;
+                output_data?: Record<string, any>;
             };
             iteration_type: GroupActions;
             name?: string;
@@ -516,6 +519,7 @@ declare module "workflow" {
             input: any;
             parent_node: any;
         } | {
+            input: any;
             entry_node: string | null;
             group_nodes: string[];
             id: string;
@@ -523,7 +527,6 @@ declare module "workflow" {
             description: string | undefined;
             slug: any;
             action: string;
-            input: any;
             next_node: any;
             parent_node: any;
         })[];

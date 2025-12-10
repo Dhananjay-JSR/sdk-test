@@ -41,6 +41,7 @@ export declare class Workflow {
         input: any;
         parent_node: any;
     } | {
+        input: any;
         entry_node: string | null;
         group_nodes: string[];
         id: string;
@@ -48,7 +49,6 @@ export declare class Workflow {
         description: string | undefined;
         slug: any;
         action: string;
-        input: any;
         next_node: any;
         parent_node: any;
     })[];
